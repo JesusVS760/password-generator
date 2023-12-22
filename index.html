@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Password Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        Generate a <br />
+        <span>Random Password</span>
+      </h1>
+      <div class="display">
+        <input type="text" id="password" placeholder="Password" />
+        <img src="/images/copy.png" onclick="copyPassword()" />
+      </div>
+      <button onclick="createPassword()">
+        <img src="images/generate.png" alt="bolt" />Generate Password
+      </button>
+    </div>
+
+    <script>
+      // all constants that will be used in order to generate password
+      const passwordBox = document.getElementById("password");
+      const length = 12; // password length
+      const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+      const number = "0123456789";
+      const symbols = "@#$%^&*()_+}{[]></-=";
+
+      const allChars = upperCase + lowerCase + number + symbols;
+
+      // declaring function
+      function createPassword() {
+        // let ---> variable that only pertains to the scope, in this instance, will only be recognized within the function
+        let password = ""; // empty string... will be filled later
+        //password gets an updated version (adding to the oringal contents --> initialized to empty)
+        // will generate a password based on the random function
+        //uppercase.length == 26
+        password += upperCase[Math.floor(Math.random() * upperCase.length)];
+        password += lowerCase[Math.floor(Math.random() * upperCase.length)];
+        password += number[Math.floor(Math.random() * number.length)];
+        password += symbols[Math.floor(Math.random() * symbols.length)];
+
+        // will execute code as long as while loop successfully passes condition
+        // Since, password will only generate 4 total characters and length is up to 12
+        // We, must fulfill the length capacity
+        while (length > password.length) {
+          password += allChars[Math.floor(Math.random() * allChars.length)];
+        }
+        passwordBox.value = password;
+      }
+
+      function copyPassword() {
+        passwordBox.select();
+        document.execCommand("copy");
+      }
+    </script>
+  </body>
+</html>
